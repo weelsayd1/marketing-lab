@@ -18,6 +18,7 @@ html body, html body * { font-family: 'Cairo', sans-serif !important; font-weigh
 @media(max-width:680px){.profile .portrait{width:88px;height:88px}}
 header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}header>a:first-child{justify-self:start}header>a:last-child{justify-self:end}.nav-logo{width:76px;height:54px;object-fit:contain}.platforms{margin:0 0 20px;display:flex;flex-wrap:wrap;gap:12px 28px}.platforms dt{font-size:15px}.platforms dd{margin:0;text-align:right;font-size:15px;color:#425b51}@media(max-width:680px){.nav-logo{width:63px;height:46px}.platforms{display:grid;gap:8px}}
 .nav-logo{background:transparent;filter:url(#we-white-to-alpha)}
+.cards.campaign-list{grid-template-columns:minmax(0,1fr)}.report img{display:block;width:100%;height:auto;border:1px solid #cbd3c7;border-radius:8px}.report:hover img{transform:none}.report{min-width:0}
 </style>
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="we-white-to-alpha" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.126 -7.152 -0.722 0 10" result="inkMask"/><feComposite in="SourceGraphic" in2="inkMask" operator="in"/></filter></defs></svg>
 <header><a class="brand" dir="ltr" href="#">Marketing Lab</a><img class="nav-logo" src="brand.webp" alt="شعار WE Marketing Lab"><a href="#work">أعمالي</a></header>
@@ -37,16 +38,23 @@ const projects=[
 {title:'سنيكرز WISHPOP الرجالي',category:'كرياتيف',image:'sneakers.webp',role:'التوجيه البصري لمجموعة السنيكرز',alt:'تصميم مجموعة السنيكرز الرجالي',description:'تصور بصري لقسم السنيكرز الرجالي. استخدمت الأخضر اللايم لتمييز المجموعة وإبراز طابعها الشبابي داخل المتجر.'},
 {title:'مجموعة الجلد الطبيعي',category:'متاجر',image:'oxford.webp',role:'عرض المنتج والهوية البصرية للقسم',alt:'نموذج عرض حذاء أوكسفورد جلد',description:'تصور لقسم الأحذية الجلد الطبيعي في WISHPOP. اختيار درجات البني بيدي القسم طابعه الكلاسيكي وبيفصله بصريًا عن مجموعات السنيكرز.'},
 {title:'كومبو الراحة اليومية',category:'كرياتيف',image:'creative.webp',alt:'كرياتيف إعلاني لمخدة الرقبة ودعامة الظهر',description:'تصميم إعلاني بيعرض مخدة الرقبة ودعامة الظهر مع بعض لموظف المكتب. الفكرة إن العميل يشوف المنتجين في استخدام واحد ويفهم العرض من أول نظرة.'},
-{title:'نماذج توضيحية لتقارير Meta Ads',category:'حملات',image:'reports/meta-1.webp',gallery:["reports/meta-1.webp","reports/meta-2.webp","reports/meta-3.webp","reports/meta-4.webp","reports/meta-5.webp","reports/meta-6.webp"],alt:'نموذج توضيحي لتقرير حملات Meta',role:'نماذج ببيانات توضيحية',description:'اضغط على أي تقرير لقراءة تفاصيله بالحجم الكامل.'},
-{title:'حملة رسائل Marketing Lab',category:'حملات',description:'حملة على Meta للتعريف بكورس التجارة الإلكترونية. في تقرير 30 يوم، بدأت 81 محادثة بتكلفة 8.16 جنيه للمحادثة، والإنفاق بلغ 660.87 جنيه. المبيعات المسجلة خلال الفترة كانت صفر، فركزت المراجعة على المحادثات اللي توقفت بعد عرض السعر.'}];
+...Array.from({length:6}, (_,i)=>({title:'تقرير إعلانات Meta '+(i+1),category:'حملات',image:'reports/meta-'+(i+1)+'.webp'}))];
 const cards=document.querySelector('.cards'),filters=document.querySelector('.filters'),dialog=document.querySelector('dialog');
 for(const item of projects){
+ if(item.category==='حملات'){
+   const report=document.createElement('a');
+   report.className='card report'; report.dataset.category=item.category;
+   report.href=item.image; report.target='_blank'; report.rel='noopener';
+   report.innerHTML='<img loading="lazy" src="'+item.image+'" alt="'+item.title+'"><b>'+item.title+'</b><small>بيانات توضيحية</small>';
+   cards.append(report); continue;
+ }
  const card=document.createElement('button');card.className='card';card.dataset.category=item.category;
- card.innerHTML='<div class="art'+(item.image?'':' metric')+'">'+(item.cover==='kicks'?'<div class="kicks-cover" dir="ltr"><small>SHOPIFY × META</small><strong>Kicks<br>Shoes</strong></div>':item.image?'<img src="'+item.image+'" alt="'+item.alt+'">':'<strong>81</strong><span>محادثة بدأت</span>')+'</div><b>'+item.title+'</b><small>'+item.category+'</small>';
- card.onclick=()=>{document.querySelector('#project-title').textContent=item.title;document.querySelector('#details').innerHTML='<p class="case-role">'+(item.role||item.category)+'</p><p>'+item.description+'</p><div class="workgrid">'+(item.gallery||(item.image?[item.image]:[])).map(src=>'<img src="'+src+'" alt="'+(src==='wishpop.webp'?'تصميم تذييل المتجر':item.alt)+'">').join('')+'</div>';if(item.image?.startsWith('reports/')){const images=document.querySelectorAll('#details .workgrid img');for(const [i,img] of images.entries()){const link=document.createElement('a');link.href=img.getAttribute('src');link.target='_blank';link.rel='noopener';img.alt='عرض نموذج تقرير Meta '+(i+1)+' بالحجم الكامل';img.replaceWith(link);link.append(img)}}dialog.showModal()};cards.append(card)
+ card.innerHTML='<div class="art'+(item.image?'':' metric')+'">'+(item.cover==='kicks'?'<div class="kicks-cover" dir="ltr"><small>SHOPIFY × META</small><strong>Kicks<br>Shoes</strong></div>':item.image?'<img src="'+item.image+'" alt="'+item.alt+'">':'')+'</div><b>'+item.title+'</b><small>'+item.category+'</small>';
+ card.onclick=()=>{document.querySelector('#project-title').textContent=item.title;document.querySelector('#details').innerHTML='<p class="case-role">'+(item.role||item.category)+'</p><p>'+item.description+'</p><div class="workgrid">'+(item.gallery||(item.image?[item.image]:[])).map(src=>'<img src="'+src+'" alt="'+(src==='wishpop.webp'?'تصميم تذييل المتجر':item.alt)+'">').join('')+'</div>';dialog.showModal()};cards.append(card)
 }
 for(const label of ['الكل','حملات','كرياتيف','متاجر']){
- const b=document.createElement('button');b.textContent=label;b.setAttribute('aria-pressed',label==='الكل');b.onclick=()=>{for(const f of filters.children)f.setAttribute('aria-pressed',f===b);for(const c of cards.children)c.hidden=label!=='الكل'&&c.dataset.category!==label};filters.append(b)
+ const b=document.createElement('button');b.textContent=label;b.setAttribute('aria-pressed',label==='الكل');b.onclick=()=>{cards.classList.toggle('campaign-list',label==='حملات');for(const f of filters.children)f.setAttribute('aria-pressed',f===b);for(const c of cards.children)c.hidden=label!=='الكل'&&c.dataset.category!==label};filters.append(b)
 }
+if(location.hash==='#campaigns'){[...filters.children].find(b=>b.textContent==='حملات').click();document.querySelector('#work').scrollIntoView()}
 dialog.onclick=e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}}
 </script></html>

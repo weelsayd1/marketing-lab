@@ -26,7 +26,7 @@ header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}header
 .gallery .filters button:hover{color:#171717}
 .gallery .filters button:focus-visible{outline-offset:-3px}
 .profile-actions{display:grid;gap:8px;margin-top:18px}.profile-actions a{display:block;text-align:center;text-decoration:none;border-radius:24px;padding:9px 10px;font-size:15px;background:#194c42;color:white}.profile-actions a+a{color:#194c42;border:1px solid #99b9ae;background:#f2f8f4}.profile-actions a:hover{text-decoration:underline}
-</style>
+.card[hidden]{display:none!important}.showcase .art{height:auto;aspect-ratio:auto}.showcase .art img{display:block;width:100%;height:auto;object-fit:contain}</style>
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;pointer-events:none"><defs><filter id="we-white-to-alpha" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.126 -7.152 -0.722 0 10" result="inkMask"/><feComposite in="SourceGraphic" in2="inkMask" operator="in"/></filter></defs></svg>
 <header><a class="brand" dir="ltr" href="#">Marketing Lab</a><img class="nav-logo" src="brand.webp" alt="شعار WE Marketing Lab"><a href="#work">أعمالي</a></header>
 <div class="cover" aria-label="Wael Elsayd">
@@ -40,6 +40,7 @@ header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}header
 <dialog aria-labelledby="project-title"><form method="dialog"><button class="close">إغلاق</button></form><h2 id="project-title"></h2><div id="details"></div></dialog><footer dir="ltr">WE / Marketing Lab</footer>
 <script>
 const projects=[
+...[["gomify","Gomify","شنط"],["pulse-yard","Pulse Yard","صالة رياضية"],["pearl-lane","Pearl Lane Dental","عيادة أسنان"],["pearl-lane","Pearl Lane Dental","عيادة أسنان"],["mira-carry","Mira Carry","شنط حريمي"],["luma","LUMA","مستحضرات تجميل"],["nola","NOLA","ملابس"],["rivo","RIVO","أحذية رياضية"],["velin","VELIN","عطور"]].map(([slug,brand,sector])=>({title:brand,category:'متاجر',showcase:true,image:'showcase/'+slug+'.webp',alt:'واجهة '+brand+' – '+sector,role:sector,description:'تصميم واجهة '+brand})),
 {title:'كيكس شوز | Kicks Shoes',category:'متاجر',cover:'kicks',role:'تجهيز Shopify وربط كتالوج المنتجات بـ Meta',description:'اشتغلت على تجهيز متجر كيكس شوز وربطه بكتالوج Meta. راجعت تطابق المنتجات بين المتجر والكتالوج، وتوفر المخزون على مستوى المقاس، وحالة أهلية المنتجات للظهور في إعلانات الكتالوج. كمان راجعت إعدادات الشحن وتجربة الطلب.'},
 {title:'متجر WISHPOP',category:'متاجر',image:'group.webp',gallery:['group.webp','wishpop.webp'],role:'تجربة المتجر وتنظيم المجموعات',alt:'تصميم واجهة متجر WISHPOP',description:'نموذج من تصميم متجر أحذية على Shopify. اشتغلت على تنظيم مجموعات السنيكرز الرجالي والحريمي والأحذية الجلد، وعلى هوية بصرية تميّز كل مجموعة. المعرض بيجمع التصور البصري مع نموذج تذييل المتجر.'},
 {title:'سنيكرز WISHPOP الرجالي',category:'كرياتيف',image:'sneakers.webp',role:'التوجيه البصري لمجموعة السنيكرز',alt:'تصميم مجموعة السنيكرز الرجالي',description:'تصور بصري لقسم السنيكرز الرجالي. استخدمت الأخضر اللايم لتمييز المجموعة وإبراز طابعها الشبابي داخل المتجر.'},
@@ -55,13 +56,14 @@ for(const item of projects){
    report.innerHTML='<img loading="lazy" src="'+item.image+'" alt="'+item.title+'"><b>'+item.title+'</b><small>بيانات توضيحية</small>';
    cards.append(report); continue;
  }
- const card=document.createElement('button');card.className='card';card.dataset.category=item.category;
+ const card=document.createElement('button');card.className='card';card.dataset.category=item.category;if(item.showcase)card.classList.add('showcase');
  card.innerHTML='<div class="art'+(item.image?'':' metric')+'">'+(item.cover==='kicks'?'<div class="kicks-cover" dir="ltr"><small>SHOPIFY × META</small><strong>Kicks<br>Shoes</strong></div>':item.image?'<img src="'+item.image+'" alt="'+item.alt+'">':'')+'</div><b>'+item.title+'</b><small>'+item.category+'</small>';
  card.onclick=()=>{document.querySelector('#project-title').textContent=item.title;document.querySelector('#details').innerHTML='<p class="case-role">'+(item.role||item.category)+'</p><p>'+item.description+'</p><div class="workgrid">'+(item.gallery||(item.image?[item.image]:[])).map(src=>'<img src="'+src+'" alt="'+(src==='wishpop.webp'?'تصميم تذييل المتجر':item.alt)+'">').join('')+'</div>';dialog.showModal()};cards.append(card)
 }
 for(const label of ['الكل','حملات','كرياتيف','متاجر']){
- const b=document.createElement('button');b.textContent=label;b.setAttribute('aria-pressed',label==='الكل');b.onclick=()=>{cards.classList.toggle('campaign-list',label==='حملات');for(const f of filters.children)f.setAttribute('aria-pressed',f===b);for(const c of cards.children)c.hidden=label!=='الكل'&&c.dataset.category!==label};filters.append(b)
+ const b=document.createElement('button');b.textContent=label;b.setAttribute('aria-pressed',label==='الكل');b.onclick=()=>{cards.classList.toggle('campaign-list',label==='حملات');for(const f of filters.children)f.setAttribute('aria-pressed',f===b);for(const c of cards.children)c.hidden=label==='الكل'?!c.classList.contains('showcase'):c.dataset.category!==label};filters.append(b)
 }
+filters.firstElementChild.click();
 if(location.hash==='#campaigns'){[...filters.children].find(b=>b.textContent==='حملات').click();document.querySelector('#work').scrollIntoView()}
 dialog.onclick=e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}}
 </script></html>

@@ -5,20 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>وائل السيد | Marketing Lab</title>
   <style>
-    body { margin: 0; color: #142f2d; background: #f7f8f4; font: 18px/1.8 Tahoma, Arial, sans-serif; }
-    main { max-width: 64rem; margin: auto; padding: clamp(3rem, 8vw, 8rem) 6vw; }
-    header { border-top: 3px solid #21665b; padding-top: 2rem; }
-    h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.3; margin: .35em 0 .12em; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #252424; background: white; font: 18px/1.8 Tahoma, Arial, sans-serif; }
+    .cover { position: relative; display: grid; place-items: center; height: clamp(190px, 17.6vw, 360px); overflow: hidden; background: #f4f1ec; direction: ltr; isolation: isolate; }
+    .cover::before { content: ""; position: absolute; inset: 0 0 auto; height: 28%; background: linear-gradient(#5c5956aa, transparent); z-index: -1; }
+    .cover-name { color: #d8d1cb; font: normal clamp(88px, 14vw, 260px)/1 Georgia, serif; letter-spacing: .025em; }
+    .signature { position: absolute; width: clamp(180px, 26vw, 495px); height: auto; transform: rotate(-5deg); }
+    .intro { padding: 1.5rem 6vw; }
+    h1 { margin: 0; font-size: 2rem; }
     p { margin: .25em 0; }
   </style>
 </head>
 <body>
   <main>
-    <header>
+    <header class="cover" aria-label="Wael Elsayd">
+      <span class="cover-name" aria-hidden="true">WAEL</span>
+      <svg class="signature" aria-hidden="true" viewBox="0 0 320 120" fill="none" stroke="#252424" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M15 76C3 80 8 53 44 32C75 13 85 25 56 44C35 58 18 60 22 54C27 47 57 47 53 55C47 68 10 78 11 90C12 98 38 88 61 74C87 58 112 19 104 17C94 14 66 69 68 77C71 87 93 63 99 62C107 61 91 72 98 75C112 81 120 73 118 70C115 67 101 81 118 78C126 77 141 66 148 60C139 70 132 81 138 80C147 79 160 65 164 60C153 78 139 110 128 111C112 112 140 90 166 77C181 70 194 58 187 60C181 58 163 76 169 80C175 84 194 65 199 61C191 72 188 79 194 79C200 79 211 70 216 65C202 69 196 82 202 83C220 85 251 36 248 29C244 22 221 61 216 76C211 92 237 81 269 69L306 58"/>
+      </svg>
+    </header>
+    <section class="intro">
       <strong lang="en" dir="ltr">Marketing Lab</strong>
       <h1>وائل السيد</h1>
       <p>ميديا باير متخصص في إعلانات فيسبوك وإنستجرام للمتاجر الإلكترونية.</p>
-    </header>
+    </section>
   </main>
 </body>
 </html>

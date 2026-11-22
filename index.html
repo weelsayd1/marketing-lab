@@ -13,15 +13,18 @@ body{background:#f6f8f7;color:#12201e}.cover{background:#092d2d;padding:clamp(40
 
 /* Shared typography across the portfolio, including project dialogs. */
 html body, html body * { font-family: 'Cairo', sans-serif !important; font-weight: 700 !important; font-style: normal !important; }
+.cover-logo {position:absolute;left:7%;top:50%;transform:translateY(-50%);width:clamp(86px,9vw,152px);height:auto;mix-blend-mode:multiply}
+.profile .portrait {width:112px;height:112px;object-fit:cover;object-position:center;border-radius:50%;display:block}
+@media(max-width:680px){.cover-logo{width:58px;left:4%}.cover .cover-name,.cover .signature{translate:6vw 0}.profile .portrait{width:88px;height:88px}}
 </style>
 <header><a class="brand" dir="ltr" href="#">Marketing Lab</a><a href="#work">أعمالي</a></header>
 <div class="cover" aria-label="Wael Elsayd">
-      <span class="cover-name" aria-hidden="true">WAEL</span>
+      <img class="cover-logo" src="brand.webp" alt="Marketing Lab"><span class="cover-name" aria-hidden="true">WAEL</span>
       <svg class="signature" aria-hidden="true" viewBox="0 0 320 120" fill="none" stroke="#252424" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round">
         <path d="M15 76C3 80 8 53 44 32C75 13 85 25 56 44C35 58 18 60 22 54C27 47 57 47 53 55C47 68 10 78 11 90C12 98 38 88 61 74C87 58 112 19 104 17C94 14 66 69 68 77C71 87 93 63 99 62C107 61 91 72 98 75C112 81 120 73 118 70C115 67 101 81 118 78C126 77 141 66 148 60C139 70 132 81 138 80C147 79 160 65 164 60C153 78 139 110 128 111C112 112 140 90 166 77C181 70 194 58 187 60C181 58 163 76 169 80C175 84 194 65 199 61C191 72 188 79 194 79C200 79 211 70 216 65C202 69 196 82 202 83C220 85 251 36 248 29C244 22 221 61 216 76C211 92 237 81 269 69L306 58"/>
       </svg>
     </div>
-<main><aside class="profile"><img class="profile-brand" src="brand.webp" alt="شعار Marketing Lab"><h1>وائل السيد</h1><span class="role" lang="en">Meta Media Buyer</span><p>بساعد أصحاب المتاجر في إدارة إعلانات فيسبوك وإنستجرام، من اختيار فكرة الإعلان لحد مراجعة تجربة الشراء.</p><small>مصر · Marketing Lab</small></aside>
+<main><aside class="profile"><img class="profile-brand portrait" src="wael-elsayd.webp" width="112" height="112" alt="وائل السيد"><h1>وائل السيد</h1><span class="role" lang="en">Media Buyer</span><p>أنا وائل السيد، متخصص في التسويق الإلكتروني والتجارة الإلكترونية. عندي خبرة أكتر من ٧ سنين في إدارة الحملات الإعلانية وتصميم صفحات الهبوط والمواقع. في كورسي «من الدروب شيبنج إلى الاحتراف» بشارك تجربتي في اختيار المنتجات، واختبار العروض، وقراءة أرقام الحملات عشان أحدد الخطوة الجاية.</p><small>مصر · Marketing Lab</small></aside>
 <section class="gallery" id="work"><h2>معرض الأعمال</h2><div class="filters" aria-label="تصفية المشاريع"></div><div class="cards"></div></section></main>
 <dialog aria-labelledby="project-title"><form method="dialog"><button class="close">إغلاق</button></form><h2 id="project-title"></h2><div id="details"></div></dialog><footer dir="ltr">WE / Marketing Lab</footer>
 <script>
